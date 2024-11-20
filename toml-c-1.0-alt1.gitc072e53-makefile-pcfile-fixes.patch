@@ -1,0 +1,38 @@
+diff --git a/Makefile b/Makefile
+index 11e1684..0d1ad2d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,4 @@
+ CC     = cc
+-PREFIX = /usr/local
+ CFLAGS = -std=c99 -Wall -Wextra -Wimplicit-fallthrough -fPIC -O2 -g
+ 
+ HDRS   = toml.h
+@@ -35,11 +34,11 @@ libtoml.so.1.0: ${OBJS}
+ ${PROG}: ${LIB}
+ 
+ install: all
+-	install -d ${DESTDIR}${PREFIX}/include ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/lib/pkgconfig
++	install -d ${DESTDIR}${PREFIX}/include ${DESTDIR}${PREFIX} ${DESTDIR}${PREFIX}/pkgconfig
+ 	install toml.h   ${DESTDIR}${PREFIX}/include
+-	install ${LIB}   ${DESTDIR}${PREFIX}/lib
+-	install ${SOLIB} ${DESTDIR}${PREFIX}/lib
+-	sed 's!%%PREFIX%%!${PREFIX}!' ${PCFILE} >${DESTDIR}${PREFIX}/lib/pkgconfig/${PCFILE}
++	install ${LIB}   ${DESTDIR}${PREFIX}
++	install ${SOLIB} ${DESTDIR}${PREFIX}
++	sed 's!%%PREFIX%%!${PREFIX}!' ${PCFILE} >${DESTDIR}${PREFIX}/pkgconfig/${PCFILE}
+ 
+ check: ${PROG}
+ 	@./test.bash
+diff --git a/libtoml.pc b/libtoml.pc
+index fbc9886..ad338b9 100644
+--- a/libtoml.pc
++++ b/libtoml.pc
+@@ -1,6 +1,6 @@
+ prefix=%%PREFIX%%
+ exec_prefix=${prefix}
+-libdir=${prefix}/lib
++libdir=${prefix}
+ includedir=${prefix}/include
+ 
+ Name: libtoml
